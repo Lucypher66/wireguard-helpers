@@ -23,7 +23,7 @@ def generate_interface_config():
     interface_ip_and_subnetmask = interface_address + "/" + interface_subnetmask
     interface_private_key_file_name = interface_name + "_private_key"
     interface_public_key_file_name = interface_name + "_public_key"
-    interface_genkeys_string = "wg genkey | tee " + interface_private_key_file_name + " | wg pubkey | > " + interface_public_key_file_name
+    interface_genkeys_string = "wg genkey | tee " + interface_private_key_file_name + " | wg pubkey > " + interface_public_key_file_name
     touch_conf_file_string = "touch " + interface_conf_path
 
     #Create interface file
