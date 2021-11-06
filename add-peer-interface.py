@@ -2,9 +2,8 @@
 import os
 
 #Root check
-def remove_peer():
-    if os.geteuid() != 0:
-        exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
+if os.geteuid() != 0:
+    exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
 
 #Gather interface variables
 interface_name = input("Name des neuen Interfaces angeben: ")
