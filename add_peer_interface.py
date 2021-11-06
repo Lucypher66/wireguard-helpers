@@ -25,6 +25,12 @@ def generate_interface_config():
     if set_keepalive == "y" or set_keepalive == "Y":
         keepalive_seconds = input("In welchem Zeitabstand (Sekunden) soll ein KeepAlive-Paket geschickt werden? ")
 
+    # Error check on interface path before constructing strings that have to be executed
+    if interface_path[-1] != "/":
+        interface_path = interface_path + "/"
+        print("Pfad wurde korrigiert!")
+        print("Neuer Pfad: " + interface_path)
+
     #Prepare interface variables, will be refactored
     interface_conf_name = interface_name + ".conf"
     interface_conf_path = interface_path + interface_conf_name

@@ -16,6 +16,12 @@ def generate_interface_config():
     listen_port = input("Auf welchem Port soll WireGuard lauschen? (1025-65535): ")
     outgoing_interface = input("Lauschendes Interface angeben: ")
 
+    # Error check on interface path before constructing strings that have to be executed
+    if interface_path[-1] != "/":
+        interface_path = interface_path + "/"
+        print("Pfad wurde korrigiert!")
+        print("Neuer Pfad: " + interface_path)
+
     #Prepare interface variables
     interface_conf_name = interface_name + ".conf"
     interface_conf_path = interface_path + interface_conf_name
@@ -36,6 +42,9 @@ def generate_interface_config():
 
     with open(interface_path + interface_public_key_file_name, "r") as pubkey:
         interface_public_key = pubkey.read().rstrip()
+
+
+
 
     #Prepare interface strings for input
     insert_interface_prefix = "echo \"[Interface]\" > " + interface_conf_path
