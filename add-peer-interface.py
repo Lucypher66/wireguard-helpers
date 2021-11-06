@@ -91,7 +91,15 @@ def generate_interface_config():
     if print_overview == "Y" or print_overview == "y":
         os.system("wg show")
 
-    # Insert empty line for beauty purposes
+    #Insert empty line for beauty purposes
+    os.system(insert_empty_line)
+
+    #Prompt if the public key should be printed
+    print_overview = input("Soll der public key für das neu angelegte Interface ausgegeben werden? [Y/N]: ")
+    if print_overview == "Y" or print_overview == "y":
+        print(interface_public_key)
+
+    #Insert empty line for beauty purposes
     os.system(insert_empty_line)
 
     #Prompt if the newly created interface should be activated
