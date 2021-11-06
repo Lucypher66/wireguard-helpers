@@ -9,7 +9,7 @@ if os.geteuid() != 0:
 interface_name = input("Name des neuen Interfaces angeben: ")
 interface_path = input("Wo soll die Konfigurationsdatei gespeichert werden? ")
 interface_address = input("Adresse des neuen Interfaces angeben: ")
-interface_subnetmask = input("Subnetzmaske des neuen Interfaces angeben: ")
+interface_subnetmask = input("Subnetzmaske des neuen Interfaces angeben (0-32): ")
 save_config_prompt = input("Konfiguration beim shutdown des Interfaces speichern? (empfohlen) [Y/N]: ")
 listen_port = input("Auf welchem Port soll WireGuard lauschen? (1025-65535): ")
 outgoing_interface = input("Lauschendes Interface angeben: ")
@@ -34,7 +34,10 @@ def generate_interface_config():
     with open(interface_path + interface_private_key_file_name, "r") as privkey:
         interface_private_key = privkey.read().rstrip()
 
-    #Prepare inteface strings for input
+    with open(interface_path + interface_public_key_file_name, "r") as pubkey:
+        interface_public_key = pubkey.read().rstrip()
+
+    #Prepare interface strings for input
     insert_interface_prefix = "echo \"[Interface]\" > " + interface_conf_path
     insert_interface_address = "echo \"Address = " + interface_ip_and_subnetmask + "\" >> " + interface_conf_path
     insert_save_config = "echo \"SaveConfig = True\" >> " + interface_conf_path
@@ -42,6 +45,9 @@ def generate_interface_config():
     insert_postdown = "echo \"PostDown = iptables -D FORWARD -i " + interface_name + " -j ACCEPT; iptables -t nat -A POSTROUTING -o " + outgoing_interface + " -j MASQUERADE;\" >> " + interface_conf_path
     insert_listenport = "echo \"ListenPort = " + listen_port + "\" >> " + interface_conf_path
     insert_privatekey = "echo \"PrivateKey = " + interface_private_key + "\" >> " + interface_conf_path
+
+    #Prepare empty line string for beauty purposes
+    insert_empty_line = "echo \"\" >> " + interface_conf_path
 
     #Insert interface config
     os.system(insert_interface_prefix)
@@ -54,5 +60,28 @@ def generate_interface_config():
     os.system(insert_privatekey)
     os.system("cat " + interface_conf_path)
 
+    #Insert empty line for beauty purposes
+    os.system(insert_empty_line)
+
+    #Prompt if the public key should be printed
+    print_overview = input("Soll der public key für das neu angelegte Interface ausgegeben werden? [Y/N]: ")
+    if print_overview == "Y" or print_overview == "y":
+        print(interface_public_key)
+
+    #Insert empty line for beauty purposes
+    os.system(insert_empty_line)
+
+    #Prompt if the newly created interface should be activated
+    print_overview = input("Soll das neue Interface aktiviert werden? [Y/N]: ")
+    if print_overview == "Y" or print_overview == "y":
+        os.system("wg-quick up " + interface_name)
+
+    #Insert empty line for beauty purposes
+    os.system(insert_empty_line)
+
+    #Prompt if the current overview of interfaces should be printed
+    print_overview = input("Soll die Übersicht der aktuellen Interfaces ausgegeben werden? [Y/N]: ")
+    if print_overview == "Y" or print_overview == "y":
+        os.system("wg show")
 
 generate_interface_config()
