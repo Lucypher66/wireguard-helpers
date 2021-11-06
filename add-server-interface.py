@@ -1,21 +1,21 @@
 #!/bin/python3
 import os
 
-#Root check
-if os.geteuid() != 0:
-    exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
-
-#Gather interface variables
-interface_name = input("Name des neuen Interfaces angeben: ")
-interface_path = input("Wo soll die Konfigurationsdatei gespeichert werden? ")
-interface_address = input("Adresse des neuen Interfaces angeben: ")
-interface_subnetmask = input("Subnetzmaske des neuen Interfaces angeben (0-32): ")
-save_config_prompt = input("Konfiguration beim shutdown des Interfaces speichern? (empfohlen) [Y/N]: ")
-listen_port = input("Auf welchem Port soll WireGuard lauschen? (1025-65535): ")
-outgoing_interface = input("Lauschendes Interface angeben: ")
-
-
 def generate_interface_config():
+
+    #Root check
+    if os.geteuid() != 0:
+        exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
+
+    #Gather interface variables
+    interface_name = input("Name des neuen Interfaces angeben: ")
+    interface_path = input("Wo soll die Konfigurationsdatei gespeichert werden? ")
+    interface_address = input("Adresse des neuen Interfaces angeben: ")
+    interface_subnetmask = input("Subnetzmaske des neuen Interfaces angeben (0-32): ")
+    save_config_prompt = input("Konfiguration beim shutdown des Interfaces speichern? (empfohlen) [Y/N]: ")
+    listen_port = input("Auf welchem Port soll WireGuard lauschen? (1025-65535): ")
+    outgoing_interface = input("Lauschendes Interface angeben: ")
+
     #Prepare interface variables
     interface_conf_name = interface_name + ".conf"
     interface_conf_path = interface_path + interface_conf_name
@@ -83,5 +83,3 @@ def generate_interface_config():
     print_overview = input("Soll die Übersicht der aktuellen Interfaces ausgegeben werden? [Y/N]: ")
     if print_overview == "Y" or print_overview == "y":
         os.system("wg show")
-
-generate_interface_config()

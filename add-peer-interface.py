@@ -1,29 +1,29 @@
 #!/bin/python3
 import os
 
-#Root check
-if os.geteuid() != 0:
-    exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
-
-#Gather interface variables
-interface_name = input("Name des neuen Interfaces angeben: ")
-interface_path = input("Wo soll die Konfigurationsdatei gespeichert werden? ")
-interface_address = input("Adresse des neuen Interfaces angeben: ")
-interface_subnetmask = input("Subnetzmaske des neuen Interfaces angeben (0-32): ")
-save_config_prompt = input("Konfiguration beim deaktivieren des Interfaces speichern? (empfohlen) [Y/N]: ")
-local_listen_port = input("Auf welchem Port soll WireGuard lauschen? (1025-65535) ")
-
-#Gather peer variables
-peer_pubkey = input("Wie lautet der Public Key des Peers? ")
-tunnel_ips = input("Welcher IP-Bereich soll durch den Tunnel geroutet werden? ")
-tunnel_subnet = input("Wie groß ist das Subnetz des IP-Bereichs, der durch den Tunnel geroutet wird? (0-32): ")
-peer_ip_or_domain = input("Wie lautet die IP-Adresse oder Domain des Peers? ")
-peer_listen_port = input("Auf welchem Port lauscht der Peer? ")
-set_keepalive = input("Soll der Tunnel konstant aufrecht erhalten werden? (empfohlen) [Y/N]: ")
-if set_keepalive == "y" or set_keepalive == "Y":
-    keepalive_seconds = input("In welchem Zeitabstand (Sekunden) soll ein KeepAlive-Paket geschickt werden? ")
-
 def generate_interface_config():
+
+    #Root check
+    if os.geteuid() != 0:
+        exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
+
+    #Gather interface variables
+    interface_name = input("Name des neuen Interfaces angeben: ")
+    interface_path = input("Wo soll die Konfigurationsdatei gespeichert werden? ")
+    interface_address = input("Adresse des neuen Interfaces angeben: ")
+    interface_subnetmask = input("Subnetzmaske des neuen Interfaces angeben (0-32): ")
+    save_config_prompt = input("Konfiguration beim deaktivieren des Interfaces speichern? (empfohlen) [Y/N]: ")
+    local_listen_port = input("Auf welchem Port soll WireGuard lauschen? (1025-65535) ")
+
+    #Gather peer variables
+    peer_pubkey = input("Wie lautet der Public Key des Peers? ")
+    tunnel_ips = input("Welcher IP-Bereich soll durch den Tunnel geroutet werden? ")
+    tunnel_subnet = input("Wie groß ist das Subnetz des IP-Bereichs, der durch den Tunnel geroutet wird? (0-32): ")
+    peer_ip_or_domain = input("Wie lautet die IP-Adresse oder Domain des Peers? ")
+    peer_listen_port = input("Auf welchem Port lauscht der Peer? ")
+    set_keepalive = input("Soll der Tunnel konstant aufrecht erhalten werden? (empfohlen) [Y/N]: ")
+    if set_keepalive == "y" or set_keepalive == "Y":
+        keepalive_seconds = input("In welchem Zeitabstand (Sekunden) soll ein KeepAlive-Paket geschickt werden? ")
 
     #Prepare interface variables, will be refactored
     interface_conf_name = interface_name + ".conf"
@@ -60,9 +60,6 @@ def generate_interface_config():
     insert_peer_ip_and_port = "echo \"Endpoint = " + peer_ip_or_domain + ":" + peer_listen_port + "\" >> " + interface_conf_path
     if set_keepalive == "y" or set_keepalive == "Y":
         insert_peer_keepalive = "echo \"PersistentKeepalive = " + keepalive_seconds + "\" >> " + interface_conf_path
-
-
-
 
     #Insert interface config
     os.system(insert_interface_prefix)
@@ -107,5 +104,3 @@ def generate_interface_config():
     print_overview = input("Soll die Übersicht der aktuellen Interfaces ausgegeben werden? [Y/N]: ")
     if print_overview == "Y" or print_overview == "y":
         os.system("wg show")
-
-generate_interface_config()

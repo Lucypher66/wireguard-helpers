@@ -1,11 +1,11 @@
 #!/bin/python3
 import os
 
-#Root check
-if os.geteuid() != 0:
-    exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
-
 def remove_peer():
+
+    #Root check
+    if os.geteuid() != 0:
+        exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
 
     #Gather interface name
     interface = input("WireGuard-Interface angeben: ")
@@ -18,5 +18,3 @@ def remove_peer():
 
     #Execute wireguard command
     os.system(wireguard_command)
-
-remove_peer()
