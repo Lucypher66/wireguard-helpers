@@ -21,5 +21,3 @@ def add_peer():
 
     #Execute wireguard command
     os.system(wireguard_command)
-
-add_peer()
