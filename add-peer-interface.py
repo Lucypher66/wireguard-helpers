@@ -24,6 +24,7 @@ if set_keepalive == "y" or set_keepalive == "Y":
     keepalive_seconds = input("In welchem Zeitabstand (Sekunden) soll ein KeepAlive-Paket geschickt werden? ")
 
 def generate_interface_config():
+
     #Prepare interface variables, will be refactored
     interface_conf_name = interface_name + ".conf"
     interface_conf_path = interface_path + interface_conf_name
@@ -86,14 +87,6 @@ def generate_interface_config():
     #Insert empty line for beauty purposes
     os.system(insert_empty_line)
 
-    #Prompt if the current overview of interfaces should be printed
-    print_overview = input("Soll die Übersicht der aktuellen Interfaces ausgegeben werden? [Y/N]: ")
-    if print_overview == "Y" or print_overview == "y":
-        os.system("wg show")
-
-    #Insert empty line for beauty purposes
-    os.system(insert_empty_line)
-
     #Prompt if the public key should be printed
     print_overview = input("Soll der public key für das neu angelegte Interface ausgegeben werden? [Y/N]: ")
     if print_overview == "Y" or print_overview == "y":
@@ -107,7 +100,12 @@ def generate_interface_config():
     if print_overview == "Y" or print_overview == "y":
         os.system("wg-quick up " + interface_name)
 
-    # Insert empty line for beauty purposes
+    #Insert empty line for beauty purposes
     os.system(insert_empty_line)
+
+    #Prompt if the current overview of interfaces should be printed
+    print_overview = input("Soll die Übersicht der aktuellen Interfaces ausgegeben werden? [Y/N]: ")
+    if print_overview == "Y" or print_overview == "y":
+        os.system("wg show")
 
 generate_interface_config()
