@@ -20,6 +20,14 @@ def delete_interface():
         print("Pfad wurde korrigiert!")
         print("Neuer Pfad: " + interface_path)
 
+
+    shutdown_string = "wg-quick down " + interface_name
     delete_string = " cd " + interface_conf_path + " && rm -rf " + interface_conf_name + " && rm -rf " + interface_pubkey_name + " && rm -rf " + interface_privkey_name + " && echo \"Interface wurde gelöscht!\""
 
+    os.system(shutdown_string)
     os.system(delete_string)
+
+    # Prompt if the current overview of interfaces should be printed
+    print_overview = input("Soll die Übersicht der aktuellen Interfaces ausgegeben werden? [Y/N]: ")
+    if print_overview == "Y" or print_overview == "y":
+        os.system("wg show")
