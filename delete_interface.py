@@ -20,6 +20,6 @@ def delete_interface():
         print("Pfad wurde korrigiert!")
         print("Neuer Pfad: " + interface_path)
 
-    delete_string = " cd " + interface_conf_path + " && rm -rf " + interface_conf_name + " && rm -rf " + interface_pubkey_name + " && rm -rf " + interface_privkey_name
+    delete_string = " cd " + interface_conf_path + " && rm -rf " + interface_conf_name + " && rm -rf " + interface_pubkey_name + " && rm -rf " + interface_privkey_name + " && echo \"Interface wurde gelöscht!\""
 
     os.system(delete_string)
