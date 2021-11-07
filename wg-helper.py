@@ -48,7 +48,7 @@ if answer == "5":
 if answer == "6":
     os.system("cd /etc/wg-helper/")
     os.system("git pull")
-    print("wg-helper wurde aktualisiert!")
+    print("wg-helper ist auf dem aktuellsten Stand!")
 
 if answer == "7":
     uninstall.uninstall()
