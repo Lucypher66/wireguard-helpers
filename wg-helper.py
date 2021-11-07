@@ -20,6 +20,7 @@ print("3. Peer autorisieren")
 print("4. Peer deautoriseren")
 print("5. Tunnel-Interface löschen")
 print("6. wg-helper deinstallieren")
+print("7. Programm beenden")
 print("")
 answer = input("Auswahl: ")
 
@@ -40,3 +41,6 @@ if answer == "5":
 
 if answer == "6":
     uninstall.uninstall()
+
+if answer == "7":
+    exit("wg-helper wird beendet.")
