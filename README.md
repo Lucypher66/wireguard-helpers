@@ -1,4 +1,4 @@
-## wireguard-helper
+## wireguard-helpers
 A collection of scripts to automate the process of creating WireGuard-tunnels.
 
 You can
