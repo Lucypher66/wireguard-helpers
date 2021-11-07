@@ -1,11 +1,13 @@
 ## wireguard-helper
 A collection of scripts to automate the process of creating WireGuard-tunnels.
+
 You can
 - Create servers
 - Create peers         
 -  Authorize peers
 - Deauthorize peers
 - Delete interfaces
+
 Clone the repository and run `sudo ./install.py` as root or a user with sudo-rights.
    
 Then, you can run `sudo wg-helper` as root or a user with sudo-rights to automate your work with WireGuard.
