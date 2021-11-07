@@ -60,7 +60,8 @@ def menu():
     if answer == "8":
         exit("wg-helper wird beendet.")
 
-os.system("clear")
+
 
 while run == True:
+    os.system("clear")
     menu()
