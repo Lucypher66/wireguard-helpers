@@ -10,4 +10,5 @@ def uninstall():
         print("wg-helper wurde deinstalliert!")
 
     else:
+        #
         print("Deinstallation abgebrochen")
