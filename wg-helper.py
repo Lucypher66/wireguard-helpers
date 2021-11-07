@@ -1,11 +1,16 @@
 #!/bin/python3
 
+import os
 import authorize_peer_on_server
 import deauthorize_peer_on_server
 import add_server_interface
 import add_peer_interface
 import delete_interface
 import uninstall
+
+# Root check
+if os.geteuid() != 0:
+    exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
 
 print("################################################")
 print("#                                              #")
