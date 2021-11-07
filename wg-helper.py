@@ -24,8 +24,9 @@ print("2. Neuen Peer hinzufügen")
 print("3. Peer autorisieren")
 print("4. Peer deautoriseren")
 print("5. Tunnel-Interface löschen")
-print("6. wg-helper deinstallieren")
-print("7. Programm beenden")
+print("6. wg-helper aktualisieren")
+print("7. wg-helper deinstallieren")
+print("8. Programm beenden")
 print("")
 answer = input("Auswahl: ")
 
@@ -45,7 +46,12 @@ if answer == "5":
     delete_interface.delete_interface()
 
 if answer == "6":
-    uninstall.uninstall()
+    os.system("cd /etc/wg-helper/")
+    os.system("git pull")
+    print("wg-helper wurde aktualisiert!")
 
 if answer == "7":
+    uninstall.uninstall()
+
+if answer == "8":
     exit("wg-helper wird beendet.")
