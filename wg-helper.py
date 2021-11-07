@@ -5,6 +5,7 @@ import deauthorize_peer_on_server
 import add_server_interface
 import add_peer_interface
 import delete_interface
+import uninstall
 
 print("################################################")
 print("#                                              #")
@@ -18,6 +19,7 @@ print("2. Neuen Peer hinzufügen")
 print("3. Peer autorisieren")
 print("4. Peer deautoriseren")
 print("5. Tunnel-Interface löschen")
+print("6. wg-helper deinstallieren")
 print("")
 answer = input("Auswahl: ")
 
@@ -35,3 +37,6 @@ if answer == "4":
 
 if answer == "5":
     delete_interface.delete_interface()
+
+if answer == "6":
+    uninstall.uninstall()
