@@ -50,45 +50,47 @@ def generate_interface_config():
         interface_public_key = pubkey.read().rstrip()
 
     #Prepare interface strings for input
-    insert_interface_prefix = "echo \"[Interface]\" > " + interface_conf_path
-    insert_interface_address = "echo \"Address = " + interface_ip_and_subnetmask + "\" >> " + interface_conf_path
-    insert_save_config = "echo \"SaveConfig = True\" >> " + interface_conf_path
-    insert_listenport = "echo \"ListenPort = " + local_listen_port + "\" >> " + interface_conf_path
-    insert_privatekey = "echo \"PrivateKey = " + interface_private_key + "\" >> " + interface_conf_path
+    insert_interface_prefix = "[Interface]"
+    insert_interface_address = "Address = " + interface_ip_and_subnetmask
+    insert_save_config = "SaveConfig = True"
+    insert_listenport = "ListenPort = " + local_listen_port
+    insert_privatekey = "PrivateKey = " + interface_private_key
 
     #Prepare empty line string for beauty purposes
-    insert_empty_line = "echo \"\" >> " + interface_conf_path
+    insert_empty_line = ""
 
     #Prepare peer strings for input
-    insert_peer_prefix = "echo \"[Peer]\" >> " + interface_conf_path
-    insert_peer_public_key = "echo \"PublicKey = " + peer_pubkey + "\" >> " + interface_conf_path
-    insert_tunnel_ips = "echo \"AllowedIPs = " + tunnel_ips + "/" + tunnel_subnet + "\" >>" + interface_conf_path
-    insert_peer_ip_and_port = "echo \"Endpoint = " + peer_ip_or_domain + ":" + peer_listen_port + "\" >> " + interface_conf_path
+    insert_peer_prefix = "[Peer]"
+    insert_peer_public_key = "PublicKey = " + peer_pubkey
+    insert_tunnel_ips = "echo \"AllowedIPs = " + tunnel_ips + "/" + tunnel_subnet
+    insert_peer_ip_and_port = "echo \"Endpoint = " + peer_ip_or_domain + ":" + peer_listen_port
     if set_keepalive == "y" or set_keepalive == "Y":
-        insert_peer_keepalive = "echo \"PersistentKeepalive = " + keepalive_seconds + "\" >> " + interface_conf_path
+        insert_peer_keepalive = "echo \"PersistentKeepalive = " + keepalive_seconds
 
     #Insert interface config
-    os.system(insert_interface_prefix)
-    os.system(insert_interface_address)
-    if save_config_prompt == "Y" or save_config_prompt == "y":
-        os.system(insert_save_config)
-    os.system(insert_listenport)
-    os.system(insert_privatekey)
+    with open (interface_conf_path,"w") as conf_file:
+        conf_file.write(insert_interface_prefix)
+        conf_file.write(insert_interface_address)
+        if save_config_prompt == "Y" or save_config_prompt == "y":
+            conf_file.write(insert_save_config)
+        conf_file.write(insert_listenport)
+        conf_file.write(insert_privatekey)
 
-    #Insert empty line for beauty purposes
-    os.system(insert_empty_line)
+        #Insert empty line for beauty purposes
+        conf_file.write(insert_empty_line)
 
-    #Insert peer config
-    os.system(insert_peer_prefix)
-    os.system(insert_peer_public_key)
-    os.system(insert_tunnel_ips)
-    os.system(insert_peer_ip_and_port)
-    if set_keepalive == "y" or set_keepalive == "Y":
-        os.system(insert_peer_keepalive)
-    os.system("cat " + interface_conf_path)
+        #Insert peer config
+        conf_file.write(insert_peer_prefix)
+        conf_file.write(insert_peer_public_key)
+        conf_file.write(insert_tunnel_ips)
+        conf_file.write(insert_peer_ip_and_port)
+        if set_keepalive == "y" or set_keepalive == "Y":
+            conf_file.write(insert_peer_keepalive)
+        conf_file.write("cat " + interface_conf_path)
+        conf_file.close()
 
-    #Insert empty line for beauty purposes
-    os.system(insert_empty_line)
+    #Print empty line for beauty purposes
+    print("")
 
     #Prompt if the public key should be printed
     print_overview = input("Soll der public key für das neu angelegte Interface ausgegeben werden? [Y/N]: ")
