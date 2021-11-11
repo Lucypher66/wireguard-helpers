@@ -86,7 +86,6 @@ def generate_interface_config():
         conf_file.write(insert_peer_ip_and_port)
         if set_keepalive == "y" or set_keepalive == "Y":
             conf_file.write(insert_peer_keepalive)
-        conf_file.write("cat " + interface_conf_path)
         conf_file.close()
 
     #Print empty line for beauty purposes
