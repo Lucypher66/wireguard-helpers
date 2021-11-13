@@ -111,3 +111,4 @@ def generate_interface_config():
     print_overview = input("Soll die Übersicht der aktuellen Interfaces ausgegeben werden? [Y/N]: ")
     if print_overview == "Y" or print_overview == "y":
         os.system("wg show")
+        input("Eine Taste drücken um fortzufahren: ")
