@@ -1,6 +1,7 @@
 #!/bin/python3
 
 import os
+import sys
 import authorize_peer_on_server
 import deauthorize_peer_on_server
 import add_server_interface
