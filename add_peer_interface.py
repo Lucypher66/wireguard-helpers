@@ -1,70 +1,72 @@
 #!/bin/python3
 import os
 
-def generate_interface_config(interface_name,interface_path,interface_address,interface_subnetmask,save_config_prompt,local_listen_port,peer_pubkey,tunnel_ips,tunnel_subnet,peer_ip_or_domain,peer_listen_port,set_keepalive):
+def generate_interface_config(interface_name,interface_path,interface_address,interface_subnetmask,save_config_prompt,local_listen_port,peer_pubkey,tunnel_ips,tunnel_subnet,peer_ip_or_domain,peer_listen_port,set_keepalive,keepalive_seconds):
 
     #Root check
     if os.geteuid() != 0:
         exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
 
     #Gather interface variables
-    if interface_name == "":
+    if interface_name == "" or interface_name == None:
         interface_name = input("Name des neuen Interfaces angeben: ")
     else:
         pass
 
-    if interface_path == "":
+    if interface_path == "" or interface_path == None:
         interface_path = input("Wo soll die Konfigurationsdatei gespeichert werden? ")
     else:
         pass
-    if interface_address == "":
+    if interface_address == "" or interface_address == None:
         interface_address = input("Adresse des neuen Interfaces angeben: ")
     else:
         pass
 
-    if interface_subnetmask == "":
+    if interface_subnetmask == "" or interface_subnetmask == None:
         interface_subnetmask = input("Subnetzmaske des neuen Interfaces angeben (0-32): ")
     else:
         pass
 
-    if save_config_prompt == "":
+    if save_config_prompt == "" or save_config_prompt == None:
         save_config_prompt = input("Konfiguration beim deaktivieren des Interfaces speichern? (empfohlen) [Y/N]: ")
     else:
         pass
 
-    if local_listen_port == "":
+    if local_listen_port == "" or local_listen_port == None:
         local_listen_port = input("Auf welchem Port soll WireGuard lauschen? (1025-65535) ")
     else:
         pass
 
     #Gather peer variables
-    if peer_pubkey == "":
+    if peer_pubkey == "" or peer_pubkey == None:
         peer_pubkey = input("Wie lautet der Public Key des Peers? ")
     else:
         pass
 
-    if tunnel_ips == "":
+    if tunnel_ips == "" or tunnel_ips == None:
         tunnel_ips = input("Welcher IP-Bereich soll durch den Tunnel geroutet werden? ")
     else:
         pass
 
-    if tunnel_subnet =="":
+    if tunnel_subnet =="" or tunnel_subnet == None:
         tunnel_subnet = input("Wie groß ist das Subnetz des IP-Bereichs, der durch den Tunnel geroutet wird? (0-32): ")
     else:
         pass
 
-    if peer_ip_or_domain == "":
+    if peer_ip_or_domain == "" or peer_ip_or_domain == None:
         peer_ip_or_domain = input("Wie lautet die IP-Adresse oder Domain des Peers? ")
     else:
         pass
 
-    if peer_listen_port == "":
+    if peer_listen_port == "" or peer_listen_port == None:
         peer_listen_port = input("Auf welchem Port lauscht der Peer? ")
 
-    if set_keepalive != 1 or set_keepalive != True:
+    if set_keepalive != 1 or set_keepalive == None:
         set_keepalive = input("Soll der Tunnel konstant aufrecht erhalten werden? (empfohlen) [Y/N]: ")
-    if set_keepalive == "y" or set_keepalive == "Y" or set_keepalive == 1 or set_keepalive == True:
-        keepalive_seconds = input("In welchem Zeitabstand (Sekunden) soll ein KeepAlive-Paket geschickt werden? ")
+        if set_keepalive == "y" or set_keepalive == "Y" or set_keepalive == 1 or set_keepalive == True:
+            keepalive_seconds = input("In welchem Zeitabstand (Sekunden) soll ein KeepAlive-Paket geschickt werden? ")
+    else:
+        pass
 
     # Error check on interface path before constructing strings that have to be executed
     if interface_path[-1] != "/":
@@ -72,7 +74,7 @@ def generate_interface_config(interface_name,interface_path,interface_address,in
         print("Pfad wurde korrigiert!")
         print("Neuer Pfad: " + interface_path)
 
-    #Prepare interface variables, will be refactored
+    #Prepare interface variables
     interface_conf_name = interface_name + ".conf"
     interface_conf_path = interface_path + interface_conf_name
     interface_ip_and_subnetmask = interface_address + "/" + interface_subnetmask

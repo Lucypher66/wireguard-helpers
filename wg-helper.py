@@ -39,7 +39,10 @@ def menu():
         add_server_interface.generate_interface_config()
 
     if answer == "2":
-        add_peer_interface.generate_interface_config()
+        add_peer_interface.generate_interface_config(sys.argv[2],sys.argv[4],sys.argv[6],\
+                                                     sys.argv[8],sys.argv[10],sys.argv[12],\
+                                                     sys.argv[14],sys.argv[16],sys.argv[18],\
+                                                     sys.argv[20])
 
     if answer == "3":
         authorize_peer_on_server.add_peer()
