@@ -14,62 +14,69 @@ def generate_interface_config(interface_name,interface_path,interface_address,in
     if interface_name == "" or interface_name == None:
         interface_name = input("Name des neuen Interfaces angeben: ")
     else:
-        pass
+        interface_name = interface_name
 
     if interface_path == "" or interface_path == None:
         interface_path = input("Wo soll die Konfigurationsdatei gespeichert werden? ")
     else:
-        pass
+        interface_path = interface_path
+
     if interface_address == "" or interface_address == None:
         interface_address = input("Adresse des neuen Interfaces angeben: ")
     else:
-        pass
+        interface_address = interface_address
 
     if interface_subnetmask == "" or interface_subnetmask == None:
         interface_subnetmask = input("Subnetzmaske des neuen Interfaces angeben (0-32): ")
     else:
-        pass
+        interface_subnetmask = interface_subnetmask
 
     if save_config_prompt == "" or save_config_prompt == None:
         save_config_prompt = input("Konfiguration beim deaktivieren des Interfaces speichern? (empfohlen) [Y/N]: ")
     else:
-        pass
+        save_config_prompt = save_config_prompt
 
     if local_listen_port == "" or local_listen_port == None:
         local_listen_port = input("Auf welchem Port soll WireGuard lauschen? (1025-65535) ")
     else:
-        pass
+        local_listen_port = local_listen_port
 
     #Gather peer variables
     if peer_pubkey == "" or peer_pubkey == None:
         peer_pubkey = input("Wie lautet der Public Key des Peers? ")
     else:
-        pass
+        peer_pubkey = peer_pubkey
 
     if tunnel_ips == "" or tunnel_ips == None:
         tunnel_ips = input("Welcher IP-Bereich soll durch den Tunnel geroutet werden? ")
     else:
-        pass
+        tunnel_ips = tunnel_ips
 
     if tunnel_subnet =="" or tunnel_subnet == None:
         tunnel_subnet = input("Wie groß ist das Subnetz des IP-Bereichs, der durch den Tunnel geroutet wird? (0-32): ")
     else:
-        pass
+        tunnel_subnet = tunnel_subnet
 
     if peer_ip_or_domain == "" or peer_ip_or_domain == None:
         peer_ip_or_domain = input("Wie lautet die IP-Adresse oder Domain des Peers? ")
     else:
-        pass
+        peer_ip_or_domain = peer_ip_or_domain
 
     if peer_listen_port == "" or peer_listen_port == None:
         peer_listen_port = input("Auf welchem Port lauscht der Peer? ")
-
-    if set_keepalive != 1 or set_keepalive == None:
-        set_keepalive = input("Soll der Tunnel konstant aufrecht erhalten werden? (empfohlen) [Y/N]: ")
-        if set_keepalive == "y" or set_keepalive == "Y" or set_keepalive == 1 or set_keepalive == True:
-            keepalive_seconds = input("In welchem Zeitabstand (Sekunden) soll ein KeepAlive-Paket geschickt werden? ")
     else:
+        peer_listen_port = peer_listen_port
+
+    if set_keepalive == "no" or set_keepalive == "N" or set_keepalive == "n":
         pass
+    else:
+        if set_keepalive != "yes" or set_keepalive == None and set_keepalive != "no":
+            set_keepalive = input("Soll der Tunnel konstant aufrecht erhalten werden? (empfohlen) [Y/N]: ")
+            if set_keepalive == "y" or set_keepalive == "Y":
+                keepalive_seconds = input("In welchem Zeitabstand (Sekunden) soll ein KeepAlive-Paket geschickt werden? ")
+        else:
+            set_keepalive = "Y"
+            keepalive_seconds = keepalive_seconds
 
     # Error check on interface path before constructing strings that have to be executed
     if interface_path[-1] != "/":

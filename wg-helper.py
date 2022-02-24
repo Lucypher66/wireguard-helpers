@@ -13,6 +13,13 @@ import uninstall
 if os.geteuid() != 0:
     exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
 
+if sys.argv[1] == "--add-peer-interface":
+    add_peer_interface.generate_interface_config(sys.argv[3], sys.argv[5], sys.argv[7], \
+                                                 sys.argv[9], sys.argv[11], sys.argv[13], \
+                                                 sys.argv[15], sys.argv[17], sys.argv[19], \
+                                                 sys.argv[21],sys.argv[23],sys.argv[25],\
+                                                 sys.argv[27])
+
 run = True
 
 def menu():
@@ -39,10 +46,7 @@ def menu():
         add_server_interface.generate_interface_config()
 
     if answer == "2":
-        add_peer_interface.generate_interface_config(sys.argv[2],sys.argv[4],sys.argv[6],\
-                                                     sys.argv[8],sys.argv[10],sys.argv[12],\
-                                                     sys.argv[14],sys.argv[16],sys.argv[18],\
-                                                     sys.argv[20])
+        add_peer_interface.generate_interface_config()
 
     if answer == "3":
         authorize_peer_on_server.add_peer()
