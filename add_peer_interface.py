@@ -1,5 +1,8 @@
 #!/bin/python3
 import os
+import authorize_peer_on_server_validate_arguments
+
+authorize_peer_on_server_validate_arguments.validate_command_line_arguments()
 
 def generate_interface_config(interface_name,interface_path,interface_address,interface_subnetmask,save_config_prompt,local_listen_port,peer_pubkey,tunnel_ips,tunnel_subnet,peer_ip_or_domain,peer_listen_port,set_keepalive,keepalive_seconds):
 

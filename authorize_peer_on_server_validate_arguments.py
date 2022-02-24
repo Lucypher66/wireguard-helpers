@@ -1,6 +1,6 @@
 import sys
 
-def validate_check():
+def validate_command_line_arguments():
     if sys.argv[1] != "--interface-name":
         exit("Unknown argument: " + sys.argv[1])
 
