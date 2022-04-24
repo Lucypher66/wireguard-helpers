@@ -1,11 +1,12 @@
 #!/bin/python3
 import os
+import sys
 
 def delete_interface():
 
     #Root check
     if os.geteuid() != 0:
-        exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
+        sys.exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
 
     interface_name = input("Name des zu löschenden Interfaces angeben: ")
     interface_conf_path = input("Pfad in dem die Konfigurationsdatei liegt angeben: ")

@@ -6,11 +6,12 @@ import deauthorize_peer_on_server
 import add_server_interface
 import add_peer_interface
 import delete_interface
+import sys
 import uninstall
 
 # Root check
 if os.geteuid() != 0:
-    exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
+    sys.exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
 
 run = True
 
@@ -58,7 +59,7 @@ def menu():
         uninstall.uninstall()
 
     if answer == "8":
-        exit("wg-helper wird beendet.")
+        sys.exit("wg-helper wird beendet.")
 
 
 

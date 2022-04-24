@@ -1,11 +1,12 @@
 #!/bin/python3
 import os
+import sys
 
 def add_peer():
 
     #Root check
     if os.geteuid() != 0:
-        exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
+        sys.exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
 
     #Gather interface where the peer will be added to
     interface = input("WireGuard-Interface angeben: ")
