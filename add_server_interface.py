@@ -56,7 +56,7 @@ def generate_interface_config():
     with open (interface_conf_path,"w") as conf_file:
         conf_file.write(insert_interface_prefix)
         conf_file.write(insert_interface_address)
-        if save_config_prompt == "Y" or save_config_prompt == "y":
+        if save_config_prompt in ("Y", "y"):
             conf_file.write(insert_save_config)
         conf_file.write(insert_postup)
         conf_file.write(insert_postdown)
@@ -69,7 +69,7 @@ def generate_interface_config():
 
     #Prompt if the public key should be printed
     print_overview = input("Soll der public key für das neu angelegte Interface ausgegeben werden? [Y/N]: ")
-    if print_overview == "Y" or print_overview == "y":
+    if print_overview in ("Y", "y"):
         print(interface_public_key)
 
     #Insert empty line for beauty purposes
@@ -77,7 +77,7 @@ def generate_interface_config():
 
     #Prompt if the newly created interface should be activated
     print_overview = input("Soll das neue Interface aktiviert werden? [Y/N]: ")
-    if print_overview == "Y" or print_overview == "y":
+    if print_overview in ("Y", "y"):
         os.system("wg-quick up " + interface_name)
 
     #Insert empty line for beauty purposes
@@ -85,6 +85,6 @@ def generate_interface_config():
 
     #Prompt if the current overview of interfaces should be printed
     print_overview = input("Soll die Übersicht der aktuellen Interfaces ausgegeben werden? [Y/N]: ")
-    if print_overview == "Y" or print_overview == "y":
+    if print_overview in ("Y", "y"):
         os.system("wg show")
         input("Eine Taste drücken um fortzufahren: ")

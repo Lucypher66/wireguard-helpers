@@ -22,7 +22,7 @@ def generate_interface_config():
     peer_ip_or_domain = input("Wie lautet die IP-Adresse oder Domain des Peers? ")
     peer_listen_port = input("Auf welchem Port lauscht der Peer? ")
     set_keepalive = input("Soll der Tunnel konstant aufrecht erhalten werden? (empfohlen) [Y/N]: ")
-    if set_keepalive == "y" or set_keepalive == "Y":
+    if set_keepalive in ("y", "Y"):
         keepalive_seconds = input("In welchem Zeitabstand (Sekunden) soll ein KeepAlive-Paket geschickt werden? ")
 
     # Error check on interface path before constructing strings that have to be executed
@@ -64,14 +64,14 @@ def generate_interface_config():
     insert_peer_public_key = "PublicKey = " + peer_pubkey + "\n"
     insert_tunnel_ips = "AllowedIPs = " + tunnel_ips + "/" + tunnel_subnet + "\n"
     insert_peer_ip_and_port = "Endpoint = " + peer_ip_or_domain + ":" + peer_listen_port + "\n"
-    if set_keepalive == "y" or set_keepalive == "Y":
+    if set_keepalive in ("y", "Y"):
         insert_peer_keepalive = "PersistentKeepalive = " + keepalive_seconds  + "\n"
 
     #Insert interface config
     with open (interface_conf_path,"w") as conf_file:
         conf_file.write(insert_interface_prefix)
         conf_file.write(insert_interface_address)
-        if save_config_prompt == "Y" or save_config_prompt == "y":
+        if save_config_prompt in ("Y", "y"):
             conf_file.write(insert_save_config)
         conf_file.write(insert_listenport)
         conf_file.write(insert_privatekey)
@@ -84,7 +84,7 @@ def generate_interface_config():
         conf_file.write(insert_peer_public_key)
         conf_file.write(insert_tunnel_ips)
         conf_file.write(insert_peer_ip_and_port)
-        if set_keepalive == "y" or set_keepalive == "Y":
+        if set_keepalive in ("y", "Y"):
             conf_file.write(insert_peer_keepalive)
         conf_file.close()
 
@@ -93,7 +93,7 @@ def generate_interface_config():
 
     #Prompt if the public key should be printed
     print_overview = input("Soll der public key für das neu angelegte Interface ausgegeben werden? [Y/N]: ")
-    if print_overview == "Y" or print_overview == "y":
+    if print_overview in ("Y", "y"):
         print(interface_public_key)
 
     #Insert empty line for beauty purposes
@@ -101,7 +101,7 @@ def generate_interface_config():
 
     #Prompt if the newly created interface should be activated
     print_overview = input("Soll das neue Interface aktiviert werden? [Y/N]: ")
-    if print_overview == "Y" or print_overview == "y":
+    if print_overview in ("Y", "y"):
         os.system("wg-quick up " + interface_name)
 
     #Insert empty line for beauty purposes
@@ -109,6 +109,6 @@ def generate_interface_config():
 
     #Prompt if the current overview of interfaces should be printed
     print_overview = input("Soll die Übersicht der aktuellen Interfaces ausgegeben werden? [Y/N]: ")
-    if print_overview == "Y" or print_overview == "y":
+    if print_overview in ("Y", "y"):
         os.system("wg show")
         input("Eine Taste drücken um fortzufahren: ")

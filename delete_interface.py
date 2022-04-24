@@ -29,6 +29,6 @@ def delete_interface():
 
     # Prompt if the current overview of interfaces should be printed
     print_overview = input("Soll die Übersicht der aktuellen Interfaces ausgegeben werden? [Y/N]: ")
-    if print_overview == "Y" or print_overview == "y":
+    if print_overview in ("Y", "y"):
         os.system("wg show")
         input("Eine Taste drücken um fortzufahren: ")
