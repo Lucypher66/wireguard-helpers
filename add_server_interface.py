@@ -1,11 +1,12 @@
 #!/bin/python3
 import os
+import sys
 
 def generate_interface_config():
 
     #Root check
     if os.geteuid() != 0:
-        exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
+        sys.exit("Root-Rechte werden benötigt! Bitte als root- oder sudo-user ausführen!")
 
     #Gather interface variables
     interface_name = input("Name des neuen Interfaces angeben: ")

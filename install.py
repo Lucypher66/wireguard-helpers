@@ -1,5 +1,6 @@
 #!/bin/python3
 import os
+import sys
 
 answer = input("Soll wg-helper installiert werden? [Y/N]: ")
 
@@ -10,4 +11,4 @@ if answer == "y" or answer == "Y":
     print("wg-helper wurde installiert und kann mit \"sudo wg-helper\" aufgerufen werden!")
 
 else:
-    exit("wg-helper wird nicht installiert.")
+    sys.exit("wg-helper wird nicht installiert.")
